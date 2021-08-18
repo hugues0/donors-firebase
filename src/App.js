@@ -13,6 +13,7 @@ function App() {
       <Switch>
         <Route exact path="/" component={ListRecord} />
         <Route exact path="/add" component={AddEdit} />
+        <Route exact path="/update/:id" component={AddEdit} />
       </Switch>
     </div>
   );

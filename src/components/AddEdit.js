@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import fireDb from '../firebase'
-import { useHistory } from "react-router-dom";
+import { useHistory,useParams } from "react-router-dom";
 import { isEmpty } from "lodash";
 
 const AddEdit = () => {
@@ -11,10 +11,36 @@ const AddEdit = () => {
     address: "",
   };
 
+  const [data, setData] = useState({});
   const [initialState, setState] = useState(values);
   const { name, mobile, email, address } = initialState;
   const history = useHistory()
-  const handleInputChange = (e) => {
+  
+  let {id} = useParams()
+  console.log(id);
+
+  useEffect(() => {
+    fireDb.child("contacts").on("value", (snapshot) => {
+      if (snapshot.val() !== null) {
+        setData({
+          ...snapshot.val(),
+        });
+      } else {
+        snapshot({});
+      }
+    });
+  }, [id]);
+
+
+  useEffect(() => {
+      if(isEmpty(id)){
+          setData({...values})
+      } else {
+          setData({...data[id]})
+      }
+  },[id,data])
+
+  const handleInputChange = (e) => { 
       let {name,value} = e.target
       setState({
           ...initialState,

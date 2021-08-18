@@ -54,7 +54,7 @@ const ListRecord = () => {
                     <td>{data[id].email}</td>
                     <td>{data[id].address}</td>
                     <td className="text-center">
-                      <Link to={"/update/${id}"}>
+                      <Link to={`/update/${id}`}>
                         <a className="btn text-primary">
                           <i className="fas fa-pencil-alt" />
                         </a>
